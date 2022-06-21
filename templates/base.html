@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDo App</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+<div class="container-fluid">
+    {%- include 'navbar.html' -%}
+    {%- block tasks -%}{%- endblock -%}
+    {%- block login -%}{%- endblock -%}
+    {%- block register -%}{%- endblock -%}
+    {%- block settings -%}{%- endblock -%}
+    {%- block about -%}{%- endblock -%}
+    {%- block new_task -%}{%- endblock -%}
+    {%- block task -%}{%- endblock -%}
+    {%- block statics %}{%- endblock -%}
+    {%- include 'footer.html' -%}
+</div>
+</body>
+</html>
