@@ -1,46 +1,42 @@
 {%- extends 'base.html' -%}
 {%- block new_task -%}
-    <div class="col-7 mx-auto">
-        <div class="border rounded bg-light pl-5 pr-5 pt-5 pb-3">
-            <form action="/">
-                <div class="row justify-content-center">
-                    <h3 class="mb-4">Create New Task</h3>
-                </div>
-                <div class="row">
-                    <div class="col-12 mb-4">
-                        <div class="form-outline">
-                            <input type="text" id="title" class="form-control" placeholder="Title"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mb-4">
-                        <div class="form-outline">
-                            <textarea id="content" class="form-control" placeholder="Content" rows="8"></textarea>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4 mb-4">
-                        <div class="form-outline">
-                            <label>Expected Ended Date</label>
-                        </div>
-                    </div>
-                    <div class="col-8 mb-4">
-                        <div class="form-outline">
-                            <input type="date" id="password" class="form-control" placeholder="Password"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 mb-4">
-                        <div class="form-outline">
-                            <input type="submit" id="mail" class="form-control btn btn-success"
-                                   value="Create New Task">
-                        </div>
-                    </div>
-                </div>
-            </form>
+    <form action="/">
+        <div class="row justify-content-center">
+            <h3 class="mb-4">Create New Task</h3>
         </div>
-    </div>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="form-outline">
+                    <input type="text" id="title" class="form-control" placeholder="Title"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="form-outline">
+                    <textarea id="content" class="form-control" placeholder="Content" rows="8"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 mb-4">
+                <div class="form-outline">
+                    <label>Expected Ended Date</label>
+                </div>
+            </div>
+            <div class="col-8 mb-4">
+                <div class="form-outline">
+                    <input type="date" id="password" class="form-control" placeholder="Password"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="form-outline">
+                    <input type="submit" id="mail" class="form-control btn btn-success"
+                           value="Create New Task">
+                </div>
+            </div>
+        </div>
+    </form>
 {%- endblock -%}

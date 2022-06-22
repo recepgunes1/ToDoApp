@@ -9,13 +9,15 @@
 <div class="container-fluid">
     {%- include 'fixed/navbar.html' -%}
     {%- block tasks -%}{%- endblock -%}
-    {%- block login -%}{%- endblock -%}
-    {%- block register -%}{%- endblock -%}
-    {%- block settings -%}{%- endblock -%}
-    {%- block about -%}{%- endblock -%}
-    {%- block new_task -%}{%- endblock -%}
-    {%- block task -%}{%- endblock -%}
-    {%- block statics %}{%- endblock -%}
+    <div class="col-7 mx-auto border rounded bg-light pl-5 pr-5 pt-5 pb-3">
+        {%- block login -%}{%- endblock -%}
+        {%- block register -%}{%- endblock -%}
+        {%- block settings -%}{%- endblock -%}
+        {%- block about -%}{%- endblock -%}
+        {%- block new_task -%}{%- endblock -%}
+        {%- block task -%}{%- endblock -%}
+        {%- block statics %}{%- endblock -%}
+    </div>
     {%- include 'fixed/footer.html' -%}
 </div>
 </body>
