@@ -1,23 +1,23 @@
 {% block navbar %}
     <nav class="navbar navbar-expand navbar-light bg-light mb-5 border-bottom">
-        <a class="navbar-brand" href="{{ url_for('index') }}">To-Do App Project</a>
+        <a class="navbar-brand" href="{{ url_for('fixed.index') }}">To-Do App Project</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('fixed.index') }}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('statics') }}">Statics</a>
+                <a class="nav-link" href="{{ url_for('task.statics') }}">Statics</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('settings') }}">Settings</a>
+                <a class="nav-link" href="{{ url_for('auth.settings') }}">Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+                <a class="nav-link" href="{{ url_for('fixed.about') }}">About Us</a>
             </li>
         </ul>
         <ul class="navbar-nav navbar-right">
             <li class="nav-item ml-5">
-                <a href="{{ url_for('create_new_task') }}">
+                <a href="{{ url_for('task.create_new_task') }}">
                     <button class="btn btn-primary" type="submit">Create New Task</button>
                 </a>
             </li>
