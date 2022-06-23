@@ -5,7 +5,7 @@ fixed = Blueprint('fixed', __name__)
 
 @fixed.route('/')
 @fixed.route('/home')
-def index():
+def home():
     return render_template('task/tasks.html')
 
 
