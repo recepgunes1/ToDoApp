@@ -11,7 +11,8 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    form = LoginForm()
+    if request.method == 'POST' and form.validate():
         email = request.form.get('email')
         password = request.form.get('password')
         if email or password:
@@ -26,13 +27,13 @@ def login():
                 flash('User does not exist.', category='error')
         else:
             flash('All inputs must be filled.', category='error')
-    form = LoginForm()
     return render_template('auth/login.html', form=form)
 
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
-    if request.method == 'POST':
+    form = RegisterForm()
+    if request.method == 'POST' and form.validate():
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
         email = request.form.get('email')
@@ -54,7 +55,6 @@ def register():
                 flash("Passwords must match.", category='error')
         else:
             flash("All inputs must be filled.", category='error')
-    form = RegisterForm()
     return render_template('auth/register.html', form=form)
 
 

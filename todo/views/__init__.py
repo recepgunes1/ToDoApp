@@ -1,3 +1,3 @@
 from .auth import auth
-from .fixed import fixed
+from .main import main
 from .task import task

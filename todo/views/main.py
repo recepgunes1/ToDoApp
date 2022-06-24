@@ -3,11 +3,11 @@ from flask_login import login_required, current_user
 
 from todo.forms import UpdateStatus
 
-fixed = Blueprint('fixed', __name__)
+main = Blueprint('fixed', __name__)
 
 
-@fixed.route('/', methods=['GET', 'POST'])
-@fixed.route('/home', methods=['GET', 'POST'])
+@main.route('/', methods=['GET', 'POST'])
+@main.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
     list_of_tasks = list(filter(lambda t: t.status != 'deleted', current_user.tasks))
@@ -15,6 +15,6 @@ def home():
     return render_template('task/tasks.html', tasks=list_of_tasks, update_status=update_status)
 
 
-@fixed.route('/about')
+@main.route('/about')
 def about():
     return render_template('fixed/about.html')

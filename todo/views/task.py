@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, abort, redirect, url_for
+from flask import Blueprint, render_template, request, flash, abort, url_for
 from flask_login import login_required, current_user
 
 from todo import db
@@ -24,7 +24,8 @@ def statics():
 @task.route('/create', methods=['GET', 'POST'])
 @login_required
 def create_new_task():
-    if request.method == 'POST':
+    form = CreateTaskForm()
+    if request.method == 'POST' and form.validate():
         title = request.form.get('title')
         content = request.form.get('content')
         expected_dead_line = request.form.get('expected_dead_line')
@@ -36,7 +37,6 @@ def create_new_task():
             flash('New task was added successfully.', 'success')
         else:
             flash('All inputs must be filled.', 'error')
-    form = CreateTaskForm()
     return render_template('task/create_task.html', form=form)
 
 
@@ -64,4 +64,4 @@ def update_status(tid: int):
             if old_task.status == 'completed':
                 old_task.ended_date = datetime.now()
             db.session.commit()
-            return redirect(url_for('fixed.home'))
+            return render_template(url_for('fixed.home'))
