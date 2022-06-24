@@ -1,7 +1,9 @@
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from os import path
+
+from flask import Flask
 from flask_login import LoginManager
+from flask_sqlalchemy import SQLAlchemy
+
 from .config import Config
 
 db = SQLAlchemy()
@@ -18,7 +20,7 @@ def create_app():
 
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(fixed, url_prefix='/')
-    app.register_blueprint(task, url_prefix='/')
+    app.register_blueprint(task, url_prefix='/task')
 
     from todo.models import User
     from todo.models import Task

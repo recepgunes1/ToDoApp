@@ -1,6 +1,7 @@
-from todo import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+
+from todo import db
 
 
 class User(db.Model, UserMixin):
