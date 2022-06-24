@@ -22,9 +22,7 @@ def create_app():
     app.register_blueprint(fixed, url_prefix='/')
     app.register_blueprint(task, url_prefix='/task')
 
-    from todo.models import User
-    from todo.models import Task
-    from todo.models import UserTask
+    from todo.models import User, Task
 
     create_database(app)
 

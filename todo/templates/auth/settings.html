@@ -8,19 +8,19 @@
         <div class="row">
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.first_name(class_='form-control', placeholder="First Name") }}
+                    {{ form.first_name(class_='form-control', placeholder="First Name", value=current_user.first_name) }}
                 </div>
             </div>
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.last_name(class_='form-control', placeholder="Last Name") }}
+                    {{ form.last_name(class_='form-control', placeholder="Last Name", value=current_user.last_name) }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="form-outline">
-                    {{ form.email(class_='form-control', placeholder="E-Mail") }}
+                    {{ form.email(class_='form-control', placeholder="E-Mail", value=current_user.email) }}
                 </div>
             </div>
         </div>

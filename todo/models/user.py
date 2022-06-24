@@ -11,6 +11,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(64), nullable=False)
     password = db.Column(db.String(32), nullable=False)
     created_date = db.Column(db.DateTime(timezone=True), default=func.now())
+    tasks = db.relationship('Task', backref='user', passive_deletes=True)
 
     def __repr__(self):
         return f'<User id:{self.id}>'

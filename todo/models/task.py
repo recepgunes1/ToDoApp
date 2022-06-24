@@ -11,6 +11,7 @@ class Task(db.Model):
     created_date = db.Column(db.DateTime(timezone=True), default=func.now())
     expected_dead_line = db.Column(db.DateTime(timezone=True), nullable=False)
     ended_date = db.Column(db.DateTime(timezone=True))
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):
         return f'<Task id:{self.id}>'

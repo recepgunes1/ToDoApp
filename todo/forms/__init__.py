@@ -1,4 +1,5 @@
 from .login import *
-from .new_task import *
+from .create_task import *
 from .register import *
 from .settings import *
+from .update_status import *
