@@ -1,5 +1,6 @@
 import os
 import secrets
+import todo
 
 
 class Config(object):
@@ -10,3 +11,5 @@ class Config(object):
     DB_PATH = os.getcwd()
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{DB_PATH}/{DB_NAME}"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
+    APP_PATH = f'{os.getcwd()}/{todo.__name__}'
+    STATIC_FOLDER = f'{APP_PATH}/static'

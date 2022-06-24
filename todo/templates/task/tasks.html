@@ -21,7 +21,7 @@
                     <td>{{ task.expected_dead_line }}</td>
                     <form action="{{ url_for('task.update_status', tid=task.id) }}" method="post">
                         {{ update_status.hidden_tag() }}
-                        <td>{{ update_status.status(class="form-control form-select") }}</td>
+                        <td>{{ update_status.status(class="form-control form-select", default=task.status) }}</td>
                         <td>{{ update_status.submit(class="form-control btn btn-primary") }}</td>
                     </form>
                 </tr>

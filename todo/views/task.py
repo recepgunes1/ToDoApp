@@ -12,7 +12,13 @@ task = Blueprint('task', __name__)
 @task.route('/statics')
 @login_required
 def statics():
-    return render_template('task/statics.html')
+    statics_of_tasks = {'idle': len(list(filter(lambda t: t.status == 'idle', current_user.tasks))),
+                        'completed': len(list(filter(lambda t: t.status == 'completed', current_user.tasks))),
+                        'deleted': len(list(filter(lambda t: t.status == 'deleted', current_user.tasks))),
+                        'gave_up': len(list(filter(lambda t: t.status == 'gave_up', current_user.tasks)))
+                        }
+    draw_plot(statics_of_tasks, current_user.id)
+    return render_template('task/statics.html', statics=statics_of_tasks)
 
 
 @task.route('/create', methods=['GET', 'POST'])
@@ -54,8 +60,8 @@ def update_status(tid: int):
     status = request.form.get('status')
     if status:
         if old_task.owner_id == current_user.id:
-            old_task.status = status.lower()
-            if old_task.status == 'complete':
+            old_task.status = status
+            if old_task.status == 'completed':
                 old_task.ended_date = datetime.now()
             db.session.commit()
             return redirect(url_for('fixed.home'))

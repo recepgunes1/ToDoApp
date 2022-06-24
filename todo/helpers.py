@@ -1,5 +1,7 @@
 from datetime import datetime
 from hashlib import md5
+import matplotlib.pyplot as plt
+from todo.config import Config
 
 
 def create_md5(plain: str) -> str:
@@ -8,3 +10,10 @@ def create_md5(plain: str) -> str:
 
 def convert_to_date(string: str) -> datetime:
     return datetime.strptime(string, '%Y-%m-%d')
+
+
+def draw_plot(data: dict, uid: int):
+    status = list(data.keys())
+    values = list(data.values())
+    plt.bar(status, values)
+    plt.savefig(f'{Config.STATIC_FOLDER}/images/{uid}.png')
