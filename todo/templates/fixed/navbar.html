@@ -1,12 +1,12 @@
 {% block navbar %}
     <nav class="navbar navbar-expand navbar-light bg-light mb-5 border-bottom">
         <a class="navbar-brand"
-           href="{% if current_user.is_authenticated %} {{ url_for('fixed.home') }} {% else %} {{ url_for('auth.login') }} {% endif %} ">To-Do
+           href="{% if current_user.is_authenticated %} {{ url_for('main.home') }} {% else %} {{ url_for('auth.login') }} {% endif %} ">To-Do
             App Project</a>
         <ul class="navbar-nav mr-auto">
             {% if current_user.is_authenticated %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('fixed.home') }}">Home</a>
+                    <a class="nav-link" href="{{ url_for('main.home') }}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('task.statics') }}">Statics</a>
@@ -23,7 +23,7 @@
                 </li>
             {% endif %}
             <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('fixed.about') }}">About Us</a>
+                <a class="nav-link" href="{{ url_for('main.about') }}">About Us</a>
             </li>
         </ul>
         {% if current_user.is_authenticated %}

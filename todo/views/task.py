@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, flash, abort, url_for
+from flask import Blueprint, render_template, request, flash, abort, url_for, redirect
 from flask_login import login_required, current_user
 
 from todo import db
-from todo.forms import CreateTaskForm
+from todo.forms import CreateTaskForm, UpdateStatus
 from todo.helpers import *
 from todo.models import Task
 
@@ -44,9 +44,12 @@ def create_new_task():
 @login_required
 def detail(tid: int):
     task_detail = Task.query.get(tid)
+    form = UpdateStatus()
+    form.status.default = task_detail.status
+    form.process()
     if task_detail:
         if task_detail.owner_id == current_user.id:
-            return render_template('task/task.html', task=task_detail)
+            return render_template('task/task.html', task=task_detail, form=form)
         else:
             return "you cant access here"
     else:
@@ -64,4 +67,4 @@ def update_status(tid: int):
             if old_task.status == 'completed':
                 old_task.ended_date = datetime.now()
             db.session.commit()
-            return render_template(url_for('fixed.home'))
+            return redirect(url_for('main.home'))

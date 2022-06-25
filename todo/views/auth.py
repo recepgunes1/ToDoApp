@@ -20,7 +20,7 @@ def login():
             if user_exists:
                 if user_exists.password == create_md5(password):
                     login_user(user_exists, remember=True)
-                    return redirect(url_for('fixed.home'))
+                    return redirect(url_for('main.home'))
                 else:
                     flash('Password is wrong.', category='error')
             else:
@@ -48,7 +48,7 @@ def register():
                     db.session.add(new_user)
                     db.session.commit()
                     login_user(new_user, remember=True)
-                    return redirect(url_for('fixed.home'))
+                    return redirect(url_for('main.home'))
                 else:
                     flash("User exists already.", category='error')
             else:

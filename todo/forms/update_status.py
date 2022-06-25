@@ -3,6 +3,6 @@ from wtforms import SubmitField, SelectField
 
 
 class UpdateStatus(FlaskForm):
-    status = SelectField(choices=[('idle', 'Idle'), ('complete', 'Complete'),
-                                  ('give_up', 'Give Up'), ('delete', 'Delete')], coerce=str)
+    status = SelectField(choices=[('idle', 'Idle'), ('completed', 'Complete'),
+                                  ('gave_up', 'Give Up'), ('deleted', 'Delete')])
     submit = SubmitField('Update')

@@ -4,26 +4,19 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th class="w-auto">ID</th>
                 <th class="w-50">Task Title</th>
                 <th class="w-auto">Created Time</th>
                 <th class="w-auto">Expected Dead Line</th>
-                <th class="w-auto"></th>
-                <th class="w-auto"></th>
+                <th class="w-auto">Status</th>
             </tr>
             </thead>
             <tbody>
             {% for task in tasks %}
                 <tr>
-                    <td>{{ task.id }}</td>
                     <td><a href="{{ url_for('task.detail', tid=task.id) }}">{{ task.title }}</a></td>
-                    <td>{{ task.created_date }}</td>
-                    <td>{{ task.expected_dead_line }}</td>
-                    <form action="{{ url_for('task.update_status', tid=task.id) }}" method="post">
-                        {{ update_status.hidden_tag() }}
-                        <td>{{ update_status.status(class="form-control form-select", default=task.status) }}</td>
-                        <td>{{ update_status.submit(class="form-control btn btn-primary") }}</td>
-                    </form>
+                    <td>{{ task.created_date.strftime('%d-%m-%Y') }}</td>
+                    <td>{{ task.expected_dead_line.strftime('%d-%m-%Y') }}</td>
+                    <td>{{ task.status|title }}</td>
                 </tr>
             {% endfor %}
             </tbody>

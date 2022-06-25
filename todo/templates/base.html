@@ -8,10 +8,10 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
+{%- include 'fixed/navbar.html' -%}
 <div class="container-fluid">
-    {%- include 'fixed/navbar.html' -%}
-    {%- block tasks -%}{%- endblock -%}
     <div class="col-7 mx-auto border rounded bg-light pl-5 pr-5 pt-5 pb-3">
+        {%- block tasks -%}{%- endblock -%}
         {%- block login -%}{%- endblock -%}
         {%- block register -%}{%- endblock -%}
         {%- block settings -%}{%- endblock -%}
@@ -20,7 +20,7 @@
         {%- block task -%}{%- endblock -%}
         {%- block statics %}{%- endblock -%}
     </div>
-    {%- include 'fixed/footer.html' -%}
 </div>
+{%- include 'fixed/footer.html' -%}
 </body>
 </html>

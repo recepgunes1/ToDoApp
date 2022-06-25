@@ -3,7 +3,7 @@ from flask_login import login_required, current_user
 
 from todo.forms import UpdateStatus
 
-main = Blueprint('fixed', __name__)
+main = Blueprint('main', __name__)
 
 
 @main.route('/', methods=['GET', 'POST'])

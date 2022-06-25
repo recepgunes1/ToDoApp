@@ -4,27 +4,35 @@
         <table class="table table-striped">
             <tr>
                 <td class="w-25"><strong>Title</strong></td>
-                <td>{{ task.title}}</td>
+                <td>{{ task.title }}</td>
             </tr>
             <tr>
                 <td class="w-25"><strong>Task</strong></td>
-                <td class="text-nowrap">{{ task.content }}</td>
+                <td class="text-justify">{{ task.content }}</td>
             </tr>
             <tr>
                 <td class="w-25"><strong>Created Date</strong></td>
-                <td>{{ task.created_date }}</td>
+                <td>{{ task.created_date.strftime('%d-%m-%Y') }}</td>
             </tr>
             <tr>
                 <td class="w-25"><strong>Expected Ended Date</strong></td>
-                <td>{{ task.expected_dead_line }}</td>
+                <td>{{ task.expected_dead_line.strftime('%d-%m-%Y') }}</td>
             </tr>
             <tr>
                 <td class="w-25"><strong>Ended Date</strong></td>
-                <td>{{ task.ended_date }}</td>
+                <td>{% if task.ended_date %} {{ task.ended_date.strftime('%d-%m-%Y') }} {% else %} - {% endif %} </td>
             </tr>
             <tr>
-                <td class="w-25"><strong>Situation</strong></td>
-                <td>{{ task.status }}</td>
+                <td class="w-25"><strong>Status</strong></td>
+                <td>
+                    <form action="{{ url_for('task.update_status', tid=task.id) }}" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="d-flex justify-content-between">
+                            <div class="col-5">{{ form.status(class='form-control col') }}</div>
+                            <div class="col-4">{{ form.submit(class='form-control btn btn-primary col') }}</div>
+                        </div>
+                    </form>
+                </td>
             </tr>
         </table>
     </div>
