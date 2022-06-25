@@ -1,6 +1,10 @@
 {%- extends 'base.html' -%}
 {%- block tasks -%}
-    <div class="table-responsive">
+    <div class="row justify-content-center">
+        <h3 class="mb-4">{% block title%} Your Tasks{% endblock %}</h3>
+    </div>
+    {% if tasks %}
+        <div class="table-responsive">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -21,5 +25,10 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <h5 class="mb-4">You don't have any task for now.</h5>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

@@ -1,7 +1,7 @@
 {%- extends 'base.html' -%}
 {%- block settings -%}
     <div class="row justify-content-center">
-        <h3 class="mb-4">Edit Your Profile</h3>
+        <h3 class="mb-4">{% block title %}Settings{% endblock %}</h3>
     </div>
     <form action="/">
         {{ form.hidden_tag() }}

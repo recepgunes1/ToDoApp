@@ -41,16 +41,20 @@ def register():
         confirm = request.form.get('confirm')
         if first_name or last_name or email or password or confirm:
             if password == confirm:
-                user_exists = User.query.filter_by(email=email).first()
-                if not user_exists:
-                    new_user = User(first_name=first_name, last_name=last_name, email=email,
-                                    password=create_md5(password))
-                    db.session.add(new_user)
-                    db.session.commit()
-                    login_user(new_user, remember=True)
-                    return redirect(url_for('main.home'))
+                password_requirements = is_password_safe(password)
+                if password_requirements[0]:
+                    user_exists = User.query.filter_by(email=email).first()
+                    if not user_exists:
+                        new_user = User(first_name=first_name, last_name=last_name, email=email,
+                                        password=create_md5(password))
+                        db.session.add(new_user)
+                        db.session.commit()
+                        login_user(new_user, remember=True)
+                        return redirect(url_for('main.home'))
+                    else:
+                        flash("User exists already.", category='error')
                 else:
-                    flash("User exists already.", category='error')
+                    flash(password_requirements[1], category='error')
             else:
                 flash("Passwords must match.", category='error')
         else:
@@ -69,4 +73,4 @@ def settings():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('fixed.home'))
+    return redirect(url_for('main.home'))

@@ -1,7 +1,7 @@
 {%- extends 'base.html' -%}
 {%- block login -%}
     <div class="row justify-content-center">
-        <h3 class="mb-4">Sign In</h3>
+        <h3 class="mb-4">{% block title %}Sign In{% endblock %}</h3>
     </div>
     <form action="" method="POST">
         {{ form.hidden_tag() }}
