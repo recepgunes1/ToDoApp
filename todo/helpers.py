@@ -24,7 +24,7 @@ def draw_plot(data: dict, uid: int):
         remove(path)
     status = list(map(lambda x: x.upper(), data.keys()))
     values = list(data.values())
-    plt.bar(status, values, color=['blue', 'green', 'red', 'gray'])
+    plt.bar(status, values, color=['green', 'red', 'gray', 'cyan'])
     plt.savefig(path)
     plt.close()
 

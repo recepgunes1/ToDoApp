@@ -3,6 +3,7 @@ from sqlalchemy import event
 from sqlalchemy.sql import func
 
 from todo import db
+from todo.config import Config
 
 
 class User(db.Model, UserMixin):
@@ -19,10 +20,11 @@ class User(db.Model, UserMixin):
         return f'<User id:{self.id}>'
 
 
-@event.listens_for(User.__table__, 'after_create')
-def insert_tasks(*args, **kwargs):
-    from todo.create_data import create_users
-    list_of_users = create_users()
-    for user in list_of_users:
-        db.session.add(user)
-        db.session.commit()
+if Config.INSERT_TEST_DATA:
+    @event.listens_for(User.__table__, 'after_create')
+    def insert_tasks(*args, **kwargs):
+        from todo.create_data import create_users
+        list_of_users = create_users()
+        for user in list_of_users:
+            db.session.add(user)
+            db.session.commit()

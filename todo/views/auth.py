@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 from todo import db
 from todo.forms import LoginForm, RegisterForm, SettingsForm
@@ -13,9 +13,9 @@ auth = Blueprint('auth', __name__)
 def login():
     form = LoginForm()
     if request.method == 'POST' and form.validate():
-        email = request.form.get('email')
-        password = request.form.get('password')
-        if email or password:
+        email = form.data.get('email').lower().strip() or None
+        password = form.data.get('password') or None
+        if email and password:
             user_exists = User.query.filter_by(email=email).first()
             if user_exists:
                 if user_exists.password == create_md5(password):
@@ -34,12 +34,12 @@ def login():
 def register():
     form = RegisterForm()
     if request.method == 'POST' and form.validate():
-        first_name = request.form.get('first_name')
-        last_name = request.form.get('last_name')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        confirm = request.form.get('confirm')
-        if first_name or last_name or email or password or confirm:
+        first_name = form.data.get('first_name').lower().strip() or None
+        last_name = form.data.get('last_name').lower().strip() or None
+        email = form.data.get('email').lower().strip() or None
+        password = form.data.get('password') or None
+        confirm = form.data.get('confirm') or None
+        if first_name and last_name and email and password and confirm:
             if password == confirm:
                 password_requirements = is_password_safe(password)
                 if password_requirements[0]:
@@ -62,15 +62,60 @@ def register():
     return render_template('auth/register.html', form=form)
 
 
-@auth.route('/settings')
+@auth.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
     form = SettingsForm()
+    if request.method == 'POST' and form.validate():
+        flag = True
+        first_name = form.data.get('first_name').lower().strip() or None
+        last_name = form.data.get('last_name').lower().strip() or None
+        email = form.data.get('email').lower().strip() or None
+        new_password = form.data.get('new_password') or None
+        confirm = form.data.get('confirm') or None
+        current_password = form.data.get('current_password') or None
+        if first_name and last_name and email and current_password:
+            if current_user.password == create_md5(current_password):
+                user = User.query.get(current_user.id)
+                user.first_name = first_name
+                user.last_name = last_name
+
+                if current_user.email != email:
+                    email_confirmation = User.query.filter_by(email=email).first()
+                    if not email_confirmation:
+                        user.email = email
+                    else:
+                        flash('you can\'t take this email.', category='error')
+                        flag = False
+
+                if new_password or confirm:
+                    if new_password and confirm:
+                        if new_password == confirm:
+                            password_confirmation = is_password_safe(new_password)
+                            if password_confirmation[0]:
+                                user.password = create_md5(new_password)
+                            else:
+                                flash(password_confirmation[1], category='error')
+                                flag = False
+                        else:
+                            flash('Passwords must match', category='error')
+                            flag = False
+                    else:
+                        flash('All inputs must be filled.', category='error')
+                        flag = False
+                if flag:
+                    db.session.commit()
+                    flash('User was updated successfully.', category='success')
+            else:
+                flash('Current password is wrong.', category='error')
+        else:
+            flash('All inputs must be filled.', category='error')
+
     return render_template('auth/settings.html', form=form)
 
 
-@auth.route('/logout')
+@auth.route('/logout', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('main.home'))
+    return redirect(url_for('auth.login'))

@@ -14,3 +14,4 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     APP_PATH = f'{os.getcwd()}/{todo.__name__}'
     STATIC_FOLDER = f'{APP_PATH}/static'
+    INSERT_TEST_DATA = True

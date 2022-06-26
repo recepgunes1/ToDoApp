@@ -2,6 +2,7 @@ from sqlalchemy import event
 from sqlalchemy.sql import func
 
 from todo import db
+from todo.config import Config
 
 
 class Task(db.Model):
@@ -19,10 +20,11 @@ class Task(db.Model):
         return f'<Task id:{self.id}>'
 
 
-@event.listens_for(Task.__table__, 'after_create')
-def insert_tasks(*args, **kwargs):
-    from todo.create_data import create_tasks
-    list_of_tasks = create_tasks()
-    for task in list_of_tasks:
-        db.session.add(task)
-        db.session.commit()
+if Config.INSERT_TEST_DATA:
+    @event.listens_for(Task.__table__, 'after_create')
+    def insert_tasks(*args, **kwargs):
+        from todo.create_data import create_tasks
+        list_of_tasks = create_tasks()
+        for task in list_of_tasks:
+            db.session.add(task)
+            db.session.commit()

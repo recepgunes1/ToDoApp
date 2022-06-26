@@ -3,45 +3,73 @@
     <div class="row justify-content-center">
         <h3 class="mb-4">{% block title %}Settings{% endblock %}</h3>
     </div>
-    <form action="/">
+    <form action="{{ url_for('auth.settings') }}" method="post">
         {{ form.hidden_tag() }}
         <div class="row">
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.first_name(class_='form-control', placeholder="First Name", value=current_user.first_name) }}
+                    {{ form.first_name(class='form-control', placeholder='First Name', value=current_user.first_name) }}
                 </div>
             </div>
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.last_name(class_='form-control', placeholder="Last Name", value=current_user.last_name) }}
+                    {{ form.last_name(class='form-control', placeholder='Last Name', value=current_user.last_name) }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-12 mb-4">
                 <div class="form-outline">
-                    {{ form.email(class_='form-control', placeholder="E-Mail", value=current_user.email) }}
+                    {{ form.email(class='form-control', placeholder='E-Mail', value=current_user.email) }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.password(class='form-control', placeholder="Password") }}
+                    {{ form.new_password(class='form-control', placeholder='New Password') }}
                 </div>
             </div>
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.confirm(class='form-control', placeholder="Password Validation") }}
+                    {{ form.confirm(class='form-control', placeholder='New Password Validation') }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="form-outline">
+                    {{ form.current_password(class='form-control', placeholder='Current Password') }}
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-6 mb-4">
                 <div class="form-outline">
-                    {{ form.submit(class_='form-control btn btn-success') }}
+                    {{ form.submit(class='form-control btn btn-success') }}
                 </div>
             </div>
         </div>
     </form>
+    {% with messages = get_flashed_messages(with_categories=True) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'error' %}
+                    <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            &times;
+                        </button>
+                    </div>
+                {% elif category =='success' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            &times;
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
 {%- endblock -%}
