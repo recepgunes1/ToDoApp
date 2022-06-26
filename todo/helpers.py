@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from datetime import datetime
 from hashlib import md5
 from os.path import exists
@@ -17,14 +18,15 @@ def convert_to_date(string: str) -> datetime:
 
 
 def draw_plot(data: dict, uid: int):
+    data = OrderedDict(sorted(data.items()))
     path = f'{Config.STATIC_FOLDER}/images/{uid}.png'
     if exists(path):
         remove(path)
     status = list(map(lambda x: x.upper(), data.keys()))
     values = list(data.values())
-    print(data)
     plt.bar(status, values, color=['blue', 'green', 'red', 'gray'])
     plt.savefig(path)
+    plt.close()
 
 
 def is_password_safe(password: str) -> tuple:

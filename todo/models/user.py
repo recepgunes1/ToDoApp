@@ -1,10 +1,12 @@
 from flask_login import UserMixin
 from sqlalchemy.sql import func
+from sqlalchemy import event
 
 from todo import db
 
 
 class User(db.Model, UserMixin):
+    __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String(16), nullable=False)
     last_name = db.Column(db.String(16), nullable=False)
@@ -15,3 +17,12 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'<User id:{self.id}>'
+
+
+@event.listens_for(User.__table__, 'after_create')
+def insert_tasks(*args, **kwargs):
+    from todo.create_data import create_users
+    list_of_users = create_users()
+    for user in list_of_users:
+        db.session.add(user)
+        db.session.commit()
