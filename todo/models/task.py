@@ -1,5 +1,5 @@
-from sqlalchemy.sql import func
 from sqlalchemy import event
+from sqlalchemy.sql import func
 
 from todo import db
 

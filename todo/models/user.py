@@ -1,6 +1,6 @@
 from flask_login import UserMixin
-from sqlalchemy.sql import func
 from sqlalchemy import event
+from sqlalchemy.sql import func
 
 from todo import db
 

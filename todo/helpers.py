@@ -1,8 +1,8 @@
 from collections import OrderedDict
 from datetime import datetime
 from hashlib import md5
-from os.path import exists
 from os import remove
+from os.path import exists
 
 import matplotlib.pyplot as plt
 
