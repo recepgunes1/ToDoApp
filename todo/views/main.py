@@ -1,6 +1,6 @@
 from operator import attrgetter
 
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect, url_for
 from flask_login import login_required, current_user
 
 from todo.forms import UpdateStatus
@@ -9,6 +9,12 @@ main = Blueprint('main', __name__)
 
 
 @main.route('/', methods=['GET', 'POST'])
+def first_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('main.home'))
+    return redirect(url_for('auth.login'))
+
+
 @main.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():

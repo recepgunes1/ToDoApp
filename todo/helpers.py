@@ -19,7 +19,7 @@ def convert_to_date(string: str) -> datetime:
 
 def draw_plot(data: dict, uid: int):
     data = OrderedDict(sorted(data.items()))
-    path = f'{Config.STATIC_FOLDER}/images/{uid}.png'
+    path = f'{Config.STATIC_FOLDER}/images/plot/{uid}.png'
     if exists(path):
         remove(path)
     status = list(map(lambda x: x.upper(), data.keys()))
