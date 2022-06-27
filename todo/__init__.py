@@ -18,7 +18,7 @@ def create_app():
     from todo.views import main
     from todo.views import task
 
-    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(auth, url_prefix='/user')
     app.register_blueprint(main, url_prefix='/')
     app.register_blueprint(task, url_prefix='/task')
 
@@ -33,7 +33,7 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return User.query.get(int(id))
-
+    print(app.config)
     return app
 
 

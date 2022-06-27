@@ -9,7 +9,7 @@ from todo.models import User
 auth = Blueprint('auth', __name__)
 
 
-@auth.route('/login', methods=['GET', 'POST'])
+@auth.route('/sign_in', methods=['GET', 'POST'])
 def login():
     form = LoginForm()
     if request.method == 'POST' and form.validate():
@@ -30,7 +30,7 @@ def login():
     return render_template('auth/login.html', form=form)
 
 
-@auth.route('/register', methods=['GET', 'POST'])
+@auth.route('/sign_up', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if request.method == 'POST' and form.validate():
@@ -114,7 +114,7 @@ def settings():
     return render_template('auth/settings.html', form=form)
 
 
-@auth.route('/logout', methods=['GET', 'POST'])
+@auth.route('/sign_out', methods=['GET', 'POST'])
 @login_required
 def logout():
     logout_user()
