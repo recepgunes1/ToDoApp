@@ -12,11 +12,10 @@ class Config(object):
     DB_NAME = environ.get('DB_NAME') or 'database.db'
     DB_PATH = environ.get('DB_PATH') or os.getcwd()
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{DB_PATH}/{DB_NAME}"
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
-    APP_PATH = f'{os.getcwd()}/{todo.__name__}'
-    STATIC_FOLDER = f'{APP_PATH}/static'
+    SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS') or True
+    STATIC_FOLDER = f'{os.getcwd()}/{todo.__name__}/static'
     INSERT_TEST_DATA = environ.get('INSERT_TEST_DATA') or True
 
     def __repr__(self):
         return f'<Config ENV={self.ENV} DEBUG={self.DEBUG} SECRET_KEY={self.SECRET_KEY} ' \
-               f'DB_NAME={self.DB_NAME} DB_PATH={self.DB_PATH} INSERT_TEST_DATA={self.INSERT_TEST_DATA()}>'
+               f'DB_NAME={self.DB_NAME} DB_PATH={self.DB_PATH} INSERT_TEST_DATA={self.INSERT_TEST_DATA}>'
