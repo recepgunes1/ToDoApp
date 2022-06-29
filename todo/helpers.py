@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from datetime import datetime
 from hashlib import md5
-from os import remove
+from os import remove, makedirs
 from os.path import exists
 
 import matplotlib.pyplot as plt
@@ -19,13 +19,16 @@ def convert_to_date(string: str) -> datetime:
 
 def draw_plot(data: dict, uid: int):
     data = OrderedDict(sorted(data.items()))
-    path = f'{Config.STATIC_FOLDER}/images/plot/{uid}.png'
-    if exists(path):
-        remove(path)
+    directory_path = f'{Config.STATIC_FOLDER}/images/plot'
+    file_path = f'{directory_path}/{uid}.png'
+    if not exists(directory_path):
+        makedirs(directory_path)
+    if exists(file_path):
+        remove(file_path)
     status = list(map(lambda x: x.upper(), data.keys()))
     values = list(data.values())
     plt.bar(status, values, color=['green', 'red', 'gray', 'cyan'])
-    plt.savefig(path)
+    plt.savefig(file_path)
     plt.close()
 
 
