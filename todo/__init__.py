@@ -15,12 +15,14 @@ def create_app():
     db.init_app(app)
 
     from todo.views import auth
+    from todo.views import error
     from todo.views import main
     from todo.views import task
 
     app.register_blueprint(auth, url_prefix='/user')
     app.register_blueprint(main, url_prefix='/')
     app.register_blueprint(task, url_prefix='/task')
+    app.register_blueprint(error)
 
     from todo.models import User, Task
 

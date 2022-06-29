@@ -12,13 +12,16 @@ task = Blueprint('task', __name__)
 @task.route('/statics')
 @login_required
 def statics():
+    flag = False
     statics_of_tasks = {'idle': len(list(filter(lambda t: t.status == 'idle', current_user.tasks))),
                         'completed': len(list(filter(lambda t: t.status == 'completed', current_user.tasks))),
                         'deleted': len(list(filter(lambda t: t.status == 'deleted', current_user.tasks))),
                         'gave_up': len(list(filter(lambda t: t.status == 'gave_up', current_user.tasks)))
                         }
-    draw_plot(statics_of_tasks, current_user.id)
-    return render_template('task/statics.html', statics=statics_of_tasks)
+    if True in [s > 0 for s in statics_of_tasks.values()]:
+        draw_plot(statics_of_tasks, current_user.id)
+        flag = True
+    return render_template('task/statics.html', statics=statics_of_tasks, flag=flag)
 
 
 @task.route('/create', methods=['GET', 'POST'])
@@ -44,11 +47,11 @@ def create_new_task():
 @login_required
 def detail(tid: int):
     task_detail = Task.query.get(tid)
-    form = UpdateStatus()
-    form.status.default = task_detail.status
-    form.process()
     if task_detail:
         if task_detail.owner_id == current_user.id:
+            form = UpdateStatus()
+            form.status.default = task_detail.status
+            form.process()
             return render_template('task/task.html', task=task_detail, form=form)
         else:
             return "you cant access here"

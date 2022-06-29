@@ -40,9 +40,13 @@
             <p><b>Graph</b></p>
         </div>
         <div class="col-7 mb-4">
-            {% set path = 'images/plot/' + current_user.id|string + '.png' %}
-            <img src="{{ url_for('static', filename=path) }}" width="450" height="450"
-                 class="img-thumbnail"/>
+            {% if flag %}
+                {% set path = 'images/plot/' + current_user.id|string + '.png' %}
+                <img src="{{ url_for('static', filename=path) }}" width="450" height="450"
+                     class="img-thumbnail" alt="Statics of All Tasks"/>
+            {% else %}
+                <p>-</p>
+            {% endif %}
         </div>
     </div>
 {%- endblock -%}
